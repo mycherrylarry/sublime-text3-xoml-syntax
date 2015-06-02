@@ -1,0 +1,40 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: XOML-SY
+scopeName: source.xoml
+fileTypes: [xoml]
+uuid: c40984fe-cef2-44ca-bf9f-39a8421a3c3c
+
+patterns:
+
+# Parameter binding
+- name: content.binding.powershell
+  begin: '<.*WorkflowParameterBinding\.Value>'
+  end: '</.*WorkflowParameterBinding\.Value>'
+  patterns:
+  - include: source.powershell
+  - name: support.binding.powershell
+
+# For contents in one line <ns2:String> </ns2:String>
+- name: content.whole.powershell
+  match: '<ns2:String.*>.*</ns2:String>'
+  patterns:
+  - include: source.powershell
+  - name: support.oneline.powershell
+
+# For contents in mulitline in <ns2:String> </ns2:String>
+- name: content.string.powershell
+  begin: '<ns2:String.*>'
+  end: '</ns2:String>'
+  patterns:
+  - include: source.powershell
+  - name: support.contents.powershell
+    match: .
+
+# For xml contents
+- name: content.whole.xml
+  patterns:
+  - include: text.xml
+  - name: support.other.xml
+    match: .
+...
